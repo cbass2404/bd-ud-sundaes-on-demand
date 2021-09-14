@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-
-// bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
-const SummaryForm = () => {
+export default function SummaryForm({ setOrderPhase }) {
   const [tcChecked, setTcChecked] = useState(false);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    // pass along to the next phase.
+    // The next page will handle submitting order from context.
+    setOrderPhase('completed');
+  }
 
   const popover = (
     <Popover id='termsandconditions-popover'>
@@ -25,7 +31,7 @@ const SummaryForm = () => {
   );
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId='terms-and-conditions'>
         <Form.Check
           type='checkbox'
@@ -39,6 +45,4 @@ const SummaryForm = () => {
       </Button>
     </Form>
   );
-};
-
-export default SummaryForm;
+}
