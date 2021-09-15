@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-export const getScoops = () =>
+export const getScoops200 = () =>
   rest.get('http://localhost:3030/scoops', (req, res, ctx) =>
     res(
       ctx.json([
@@ -10,7 +10,12 @@ export const getScoops = () =>
     )
   );
 
-export const getToppings = () =>
+export const getScoops500 = () =>
+  rest.get('http://localhost:3030/scoops', (req, res, ctx) =>
+    res(ctx.status(500))
+  );
+
+export const getToppings200 = () =>
   rest.get('http://localhost:3030/toppings', (req, res, ctx) =>
     res(
       ctx.json([
@@ -19,4 +24,9 @@ export const getToppings = () =>
         { name: 'Hot fudge', imagePath: '/images/hot-fudge.png' },
       ])
     )
+  );
+
+export const getToppings500 = () =>
+  rest.get('http://localhost:3030/toppings', (req, res, ctx) =>
+    res(ctx.status(500))
   );
