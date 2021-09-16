@@ -10,11 +10,6 @@ export const getScoops200 = () =>
     )
   );
 
-export const getScoops500 = () =>
-  rest.get('http://localhost:3030/scoops', (req, res, ctx) =>
-    res(ctx.status(500))
-  );
-
 export const getToppings200 = () =>
   rest.get('http://localhost:3030/toppings', (req, res, ctx) =>
     res(
@@ -24,6 +19,11 @@ export const getToppings200 = () =>
         { name: 'Hot fudge', imagePath: '/images/hot-fudge.png' },
       ])
     )
+  );
+
+export const getScoops500 = () =>
+  rest.get('http://localhost:3030/scoops', (req, res, ctx) =>
+    res(ctx.status(500))
   );
 
 export const getToppings500 = () =>

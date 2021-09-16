@@ -6,26 +6,31 @@ import { OrderDetailsProvider } from '../../../contexts/OrderDetails';
 import { server } from '../../../mocks/servers';
 import { getScoops500, getToppings500 } from '../../../mocks/handlers';
 
+// beforeAll(() => {});
+
 beforeEach(() => {
-  server.listen();
   render(
     <OrderDetailsProvider>
       <OrderEntry />
     </OrderDetailsProvider>
   );
+  server.listen();
 });
 
 afterEach(() => server.close());
 
-it.skip('handles errors for scoops route', async () => {
-  server.use(getScoops500());
-  const alert = await screen.findByRole('alert', {
-    name: 'An unexpected error occured. Please try again later.',
+describe('Options handles errors as follows', () => {
+  it('handles errors for scoops route', async () => {
+    server.use(getScoops500());
+    const alert = await screen.findByRole('alert');
+
+    expect(alert).toBeInTheDocument();
   });
 
-  expect(alert).toBeInTheDocument();
-});
+  it('handles errors for toppings route', async () => {
+    server.use(getToppings500());
+    const alert = await screen.findByRole('alert');
 
-it.skip('handles errors for toppings route', async () => {
-  // test
+    expect(alert).toBeInTheDocument();
+  });
 });
