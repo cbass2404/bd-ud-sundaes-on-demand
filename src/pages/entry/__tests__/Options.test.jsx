@@ -3,16 +3,8 @@ import { render, screen } from '@testing-library/react';
 import Options from '../Options';
 import { OrderDetailsProvider } from '../../../contexts/OrderDetails';
 
-import { server } from '../../../mocks/servers';
-import { getScoops200, getToppings200 } from '../../../mocks/handlers';
-
-beforeEach(() => server.listen());
-
-afterEach(() => server.close());
-
 describe('Options component renders and functions as follows', () => {
   it('displays an image for each scoop option from server', async () => {
-    server.use(getScoops200());
     render(
       <OrderDetailsProvider>
         <Options optionType='scoops' />
@@ -27,7 +19,6 @@ describe('Options component renders and functions as follows', () => {
   });
 
   it('displays an image for each topping option from server', async () => {
-    server.use(getToppings200());
     render(
       <OrderDetailsProvider>
         <Options optionType='toppings' />
