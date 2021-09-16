@@ -3,18 +3,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import OrderEntry from '../OrderEntry';
 import { OrderDetailsProvider } from '../../../contexts/OrderDetails';
 
+import { server } from '../../../mocks/server';
 import { rest } from 'msw';
-
-beforeEach(() => {
-  render(
-    <OrderDetailsProvider>
-      <OrderEntry />
-    </OrderDetailsProvider>
-  );
-  server.listen();
-});
-
-afterEach(() => server.close());
 
 describe('Options handles errors as follows', () => {
   it('handles errors for scoops and toppings routes', async () => {
@@ -25,6 +15,12 @@ describe('Options handles errors as follows', () => {
       rest.get('http://localhost:3030/toppings', (req, res, ctx) =>
         res(ctx.status(500))
       )
+    );
+
+    render(
+      <OrderDetailsProvider>
+        <OrderEntry />
+      </OrderDetailsProvider>
     );
 
     await waitFor(async () => {
