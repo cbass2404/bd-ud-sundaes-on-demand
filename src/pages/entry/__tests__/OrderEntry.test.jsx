@@ -1,7 +1,10 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+} from '../../../test-utils/testing-library-utils';
 
 import OrderEntry from '../OrderEntry';
-import { OrderDetailsProvider } from '../../../contexts/OrderDetails';
 
 import { server } from '../../../mocks/server';
 import { rest } from 'msw';
@@ -17,11 +20,7 @@ describe('Options handles errors as follows', () => {
       )
     );
 
-    render(
-      <OrderDetailsProvider>
-        <OrderEntry />
-      </OrderDetailsProvider>
-    );
+    render(<OrderEntry />);
 
     await waitFor(async () => {
       const alerts = await screen.findAllByRole('alert');
